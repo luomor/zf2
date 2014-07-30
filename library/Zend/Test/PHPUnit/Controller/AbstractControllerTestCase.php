@@ -232,8 +232,11 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
             $query = array_merge($query, $params);
         } elseif ($method == HttpRequest::METHOD_PUT) {
             if (count($params) != 0) {
-                array_walk($params,
-                    function (&$item, $key) { $item = $key . '=' . $item; }
+                array_walk(
+                    $params,
+                    function (&$item, $key) {
+                        $item = $key . '=' . $item;
+                    }
                 );
                 $content = implode('&', $params);
                 $request->setContent($content);
@@ -707,7 +710,7 @@ abstract class AbstractControllerTestCase extends PHPUnit_Framework_TestCase
     /**
      * Recursively search a view model and it's children for the given templateName
      *
-     * @param  ViewModel $viewModel
+     * @param  \Zend\View\Model\ModelInterface $viewModel
      * @param  string    $templateName
      * @return boolean
      */
